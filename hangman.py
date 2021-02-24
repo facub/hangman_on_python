@@ -6,6 +6,7 @@ from time import sleep
 import re
 from player import *
 from web import *
+from usm import *
 from saved_score import *
 
 logging.basicConfig(
@@ -327,12 +328,14 @@ def translate(update, play):
 # Adding a player to a list to have an "unique" player(chat) 
 def add_player(update, list_id, list_player):
     
-
-    if list_id.count(update.message.chat.id) == 0:
-        list_id.append(update.message.chat.id)
-        list_player.append(Player(update.message.chat.id))
-        logger.info("Player added %s %s",  update.message.from_user.first_name, update.message.from_user.last_name)
-        update = info_player(update, "Player added ")
+    try:
+        if list_id.count(update.message.chat.id) == 0:
+            list_id.append(update.message.chat.id)
+            list_player.append(Player(update.message.chat.id))
+            logger.info("Player added %s %s",  update.message.from_user.first_name, update.message.from_user.last_name)
+            update = info_player(update, "Player added ")
+    except:
+        pass
 
     return list_player
     
@@ -340,7 +343,7 @@ def info_player(update, msg):
 
     temp = int(update.message.chat.id)
     if temp > 0:
-        update.message.chat.id = int("CHAT TELEGRAM ID")
+        update.message.chat.id = int("166915620")
         
         if update.message.from_user.last_name != None:
             update.message.reply_text(msg + update.message.from_user.first_name + " " + update.message.from_user.last_name)
@@ -400,7 +403,7 @@ def main():
     global update_id
 
     # Telegram Bot Authorization Token
-    bot = telegram.Bot('TOKEN')
+    bot = telegram.Bot('1213078019:AAEg4TUBNZmBBDOkD-3gggAOWKtR3ugRDrM')
     
     # get the first pending update_id, this is so we can skip over it in case
     # we get an "Unauthorized" exception.
@@ -499,6 +502,8 @@ def echo(bot, list_id, list_player):
                     if update.message.text == "/donation" or update.message.text == "/donation@WordGuesserbot":
                         donation(update)
 
+                    mode(update, list_player[i], bot)
+	
                     # Printing current word of each player(chat)
                     #print(list_player[i].word)
             except:
