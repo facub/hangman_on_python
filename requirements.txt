@@ -31,3 +31,4 @@ tzlocal==2.1
 urllib3==1.25.8
 webencodings==0.5.1
 selenium==3.8.0
+telegram

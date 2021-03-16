@@ -1,5 +1,6 @@
 import shelve
 
+
 # Adding player score to the file
 def score_add(play):
     fil = shelve.open("score.txt")
@@ -14,20 +15,20 @@ def score_add(play):
 
     return (score_, fil)
 
+
 # Adding a point to losing score
 def lose_plus(play):
-
     (score_, fil) = score_add(play)
 
-    fil[str(play.id)] = [score_[0], score_[1]+1]
+    fil[str(play.id)] = [score_[0], score_[1] + 1]
 
     fil.close
 
+
 # Adding a point to winning score
 def win_plus(play):
-    
     (score_, fil) = score_add(play)
 
-    fil[str(play.id)] = [score_[0]+1, score_[1]]
+    fil[str(play.id)] = [score_[0] + 1, score_[1]]
 
     fil.close
